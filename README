@@ -1,0 +1,29 @@
+
+Pastebin Scraper
+
+============================================================================================================
+
+Author:
+
+Caleb Shortt
+January, 2015
+
+------------------------------------------------------------------------------------------------------------
+
+Description:
+
+This project is a simple scraper that targets the website "pastebin". It scans through the public paste archives
+and looks for anything that might match a password-like pattern.
+
+------------------------------------------------------------------------------------------------------------
+
+Usage:
+
+An example is in pastebin_scraper.py.
+Requirements are in the requirements.txt file. Install them using pip: "pip install -r requirements.txt"
+
+------------------------------------------------------------------------------------------------------------
+
+Disclaimer:
+
+This software is offered as is and with no warranty.
