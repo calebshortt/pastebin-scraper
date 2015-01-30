@@ -21,7 +21,7 @@ class PWID(object):
 
         for match in matches:
             for item in match:
-                if item:
+                if item and len(item) >= 8:
                     prepared_matches.append(item)
 
         return prepared_matches
