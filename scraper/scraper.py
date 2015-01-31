@@ -10,6 +10,10 @@ from lxml import html
 
 
 class PWID(object):
+    """
+    Finds passwords that are characters and digits, and are at least 8 characters long.
+    Basic regex also includes special characters except spaces.
+    """
 
     def __init__(self):
         self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
@@ -28,6 +32,9 @@ class PWID(object):
 
 
 class PageScraper(object):
+    """
+    Provides a few tools to scrape a page and handle the resulting output.
+    """
 
     page_tree = None
     target_url = None
@@ -51,6 +58,7 @@ class PageScraper(object):
         results = []
 
         for link in links:
+            # remove the archive links and only take the links to public pastes
             if not str(link).startswith('/archive'):
                 results.append('{}{}'.format(self.target_url, link))
 
