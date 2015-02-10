@@ -15,6 +15,9 @@ class PWID(object):
     Basic regex also includes special characters except spaces.
     """
 
+    PW_MIN_LENGTH = 8
+    PW_MAX_LENGTH = 48
+
     def __init__(self):
         self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
 
@@ -25,7 +28,7 @@ class PWID(object):
 
         for match in matches:
             for item in match:
-                if item and len(item) >= 8:
+                if item and self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH:
                     prepared_matches.append(item)
 
         return prepared_matches
@@ -39,7 +42,7 @@ class PageScraper(object):
     page_tree = None
     target_url = None
 
-    def __init__(self, url=None):
+    def __init__(self, url):
         if url:
             self.page_tree = self.scrape(url)
             self.target_url = url
