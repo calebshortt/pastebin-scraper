@@ -3,6 +3,7 @@
 Pastebin Scraper
 ================
 
+
 Description
 -----------
 
@@ -10,6 +11,21 @@ This project is a simple scraper that targets the website "pastebin". It scans t
 and looks for anything that might match a password-like pattern.
 
 It has been designed to be easily extensible for other pages or websites.
+
+
+Installation
+------------
+
+The Pastebin Password Scraper is on pip (https://pip.pypa.io/en/latest/).
+
+This is the easiest way to install the PBPWScraper:
+
+.. code-block:: python
+
+    pip install PBPWScraper
+
+
+If you do not want to use pip you can clone the repository here.
 
 
 Usage
@@ -35,7 +51,7 @@ Requirements
 
 * All requirements are listed in requirements.txt
 
-Install them using [pip](https://pip.pypa.io/en/latest/): 
+Install them using pip at https://pip.pypa.io/en/latest/
 
 
 .. code-block:: python
