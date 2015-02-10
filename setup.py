@@ -8,10 +8,10 @@ install_reqs = parse_requirements('requirements.txt')
 reqs = [str(ir.req) for ir in install_reqs]
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 setup(
-    name='Pastebin Password Scraper',
+    name='PBPWScraper',
     version=__version__,
     description='A simple scraper of the public posts on pastebin. It looks for passwords.',
     author='Caleb Shortt',
