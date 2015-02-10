@@ -1,14 +1,7 @@
 
 from setuptools import setup, find_packages
-from pip.req import parse_requirements
 
-
-# Grab the requirements using pip
-install_reqs = parse_requirements('requirements.txt')
-reqs = [str(ir.req) for ir in install_reqs]
-
-
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 setup(
     name='PBPWScraper',
@@ -24,6 +17,10 @@ setup(
         'python',
         'password',
     ],
-    install_requires=reqs,
+    install_requires=[
+        'lxml==3.4.1',
+        'requests==2.5.1',
+        'wsgiref==0.1.2',
+    ], 
 )
 
