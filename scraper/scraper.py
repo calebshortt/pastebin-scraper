@@ -8,6 +8,8 @@ import re
 import requests
 from lxml import html
 
+from filter import TextFilter
+
 
 class PWID(object):
     """
@@ -18,8 +20,11 @@ class PWID(object):
     PW_MIN_LENGTH = 8
     PW_MAX_LENGTH = 48
 
+    filter = None
+
     def __init__(self):
         self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
+        self.filter = TextFilter()
 
     def identify_passwords(self, str_input):
         matches = self.re_pattern.findall(str_input)
@@ -28,10 +33,16 @@ class PWID(object):
 
         for match in matches:
             for item in match:
-                if item and self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH:
+
+                passed_filtering = self.filter.apply_filter(item)
+                valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
+
+                if item and valid_length and passed_filtering:
                     prepared_matches.append(item)
 
         return prepared_matches
+
+
 
 
 class PageScraper(object):

@@ -4,7 +4,7 @@ import logging
 from scraper.scraper import PageScraper, PWID
 
 
-FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
+FORMAT = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
