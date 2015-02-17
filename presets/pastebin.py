@@ -47,7 +47,7 @@ class PastebinScraper(object):
             if possible_passwords:
                 self.password_matches.append((link, confidence, possible_passwords))
 
-        return self.password_matches
+        return sorted(self.password_matches, key=lambda match: match[1])
 
 
 
