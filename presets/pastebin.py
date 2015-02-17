@@ -40,11 +40,12 @@ class PastebinScraper(object):
             text = page_scraper.find('//textarea[@class="paste_code"]/text()')
 
             possible_passwords = None
+            confidence = 0
             if text:
-                possible_passwords = self.pw_identifier.identify_passwords(text[0])
+                possible_passwords, confidence = self.pw_identifier.identify_passwords(text[0])
 
             if possible_passwords:
-                self.password_matches.append((link, possible_passwords))
+                self.password_matches.append((link, confidence, possible_passwords))
 
         return self.password_matches
 

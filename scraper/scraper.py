@@ -15,6 +15,7 @@ class PWID(object):
     """
     Finds passwords that are characters and digits, and are at least 8 characters long.
     Basic regex also includes special characters except spaces.
+    Searches a resource file of common passwords and adds any string that contains them.
     """
 
     PW_MIN_LENGTH = 8
@@ -22,26 +23,48 @@ class PWID(object):
 
     filter = None
 
+    passwords = []
+
     def __init__(self):
         self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
         self.filter = TextFilter()
+        self.passwords = self._load_resources()
 
     def identify_passwords(self, str_input):
         matches = self.re_pattern.findall(str_input)
 
         prepared_matches = []
+        match_confidence = 0
 
         for match in matches:
             for item in match:
 
-                passed_filtering = self.filter.apply_filter(item)
+                text_score = self.filter.apply_filter(item)
+                match_confidence += text_score
+                passed_filtering = text_score >= TextFilter.SCORE_THREASHOLD
+
                 valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
 
                 if item and valid_length and passed_filtering:
                     prepared_matches.append(item)
 
-        return prepared_matches
+                for password in self.passwords:
+                    if password in item and item not in prepared_matches:
+                        match_confidence += 100
+                        prepared_matches.append(item)
 
+        return prepared_matches, match_confidence
+
+    def _load_resources(self, path='resources/passwords.txt'):
+        """
+        Opens a given resource and attempts to parse the data
+        """
+        with open(path) as f:
+            content = f.readlines()
+
+        lines = [line.strip() for line in content]
+
+        return lines
 
 
 
