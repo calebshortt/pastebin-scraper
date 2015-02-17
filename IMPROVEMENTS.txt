@@ -1,0 +1,8 @@
+
+Possible Improvements for PBPWScraper:
+
+    - Using frequency analysis on discovered passwords to identify which characters are more common in passwords and
+        weighing individual characters (would be slow) of filtered results to decrease the false-positive counts.
+
+    - Automating the process on an interval (takes about 5 minutes for a new batch of public posts to be displayed
+        in any sort of numbers) and generate an auto-reporting feature for the site.

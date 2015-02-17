@@ -50,7 +50,7 @@ class PWID(object):
 
                 for password in self.passwords:
                     if password in item and item not in prepared_matches:
-                        match_confidence += 100
+                        match_confidence += TextFilter.PASSWORD_DISCOVERY
                         prepared_matches.append(item)
 
         return prepared_matches, match_confidence

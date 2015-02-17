@@ -6,6 +6,9 @@ class TextFilter(object):
 
     SCORE_THREASHOLD = 0
 
+    # The score assigned to a discovered password in the resource file
+    PASSWORD_DISCOVERY = 1000
+
     # Basic dictionary of key phrases and their associated values
     key_phrases = {
 
