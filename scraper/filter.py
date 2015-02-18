@@ -42,6 +42,32 @@ class TextFilter(object):
         'Postgres': 500,
         'postgres': 500,
         'root': 1000,
+        'clickjacking': 100,
+        'clickjacked': 100,
+        'trojan': 100,
+        'trojanized': 100,
+        'TROGANIZED': 100,
+        'attackers': 150,
+        'brute force': 250,
+        'brute-force': 250,
+        'leak': 100,
+        'vulnerable': 100,
+        'buffer overflow': 500,
+        'SQL injection': 500,
+        'authentication': 50,
+        'remote admin access': 1000,
+        'Cross-Site Scripting': 500,
+        'user name': 500,
+        'XSS': 500,
+        'attack': 50,
+        'administrator access': 1000,
+        'administrator': 100,
+
+        # Negative keywords
+        'FlashPlayerPlugin': -250,
+        'Adobe': -250,
+
+
 
         # Common Logging patterns
         'INFO': -10,
@@ -50,26 +76,39 @@ class TextFilter(object):
         'awt': -10,
         'security': 25,
         'javax': -10,
+        'main/INFO': -10,
+        'WARN': -10,
+        'Server': -10,
 
 
         # File extensions
-        '.html': -50,
-        '.mov': -50,
-        '.htm': -50,
-        '.png': -50,
-        '.m3u8': -50,
-        '.zip': -50,
-        '.jar': -50,
-        '.php': -50,
-        '.jpeg': -50,
-        '.jpg': -50,
-        '.inc': -50,
-        '.mp4': -50,
-        '.avi': -50,
-        '.mkv': -50,
-        '.rar': -50,
-        '.rev': -50,
-
+        '.html': -100,
+        '.mov': -100,
+        '.htm': -100,
+        '.png': -100,
+        '.m3u8': -100,
+        '.m3u8f': -100,
+        '.zip': -100,
+        '.jar': -100,
+        '.php': -100,
+        '.jpeg': -100,
+        '.jpg': -100,
+        '.inc': -100,
+        '.mp4': -100,
+        '.avi': -100,
+        '.mkv': -100,
+        '.rar': -100,
+        '.rev': -100,
+        '.exe': -100,
+        '.ttf': -100,
+        '.HDTV': -100,
+        '.x264-C4TV': -100,
+        '.WEB-DL.DD5.1.H.264': -100,
+        '.dtd': -100,
+        '.java': -100,
+        '.py': -100,
+        '.js': -100,
+        'sql': -100,
 
 
         # Domains
@@ -85,6 +124,7 @@ class TextFilter(object):
         '../': -10,
         '/home/': -10,
         '/src/': -10,
+        'www.': -50,
 
         # Code indicators
         'C++': -10,
@@ -100,8 +140,6 @@ class TextFilter(object):
         ']': -10,
         '/': -10,
         '\\': -10,
-        '.java': -10,
-        '.py': -10,
         '::string': -10,
         '::int': -10,
         ';': -10,
@@ -155,6 +193,34 @@ class TextFilter(object):
         'print': -10,
         'printf': -10,
         '$': -10,
+        '.widget': -10,
+        '.plugin': -10,
+        '.lib': -10,
+        '.packet': -10,
+        '.mods': -10,
+        '.common': -10,
+        'minecraft': -500,
+        '\\\\Java': -10,
+        'jre': -10,
+        'java:': -10,
+        'Integer': -50,
+        'Double': -50,
+        'parseInt': -50,
+        'intValue': -50,
+        'charAt': -50,
+        'jquery': -50,
+        'googleapis': -50,
+        'src=': -50,
+        '-Xmx1024m': -50,
+        '-XX:MaxPermSize': -50,
+        '-XX:PermSize': -50,
+        '-XX:ParallelGCThreads': -50,
+        '-XX:MinHeapFreeRatio': -50,
+        '-XX:MaxHeapFreeRatio': -50,
+        'Flash': -50,
+        'Makefile': -50,
+        'imgur': -50,
+        'java.lang.NullPointerException': -50,
     }
 
     # Patterns (regular expressions) that, if matched, apply scores to the target.
@@ -164,12 +230,15 @@ class TextFilter(object):
         '(<.+?>)': -50,
 
         # Date / Time Stamps
-        '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
+        '((\d{1,2}|\d{4})[:/-](\d{1,2}|\w{2,3})[:/-](\d{4}|\d{1,2}))': -50,
+        '(\[\d{2}:\d{2}\])': -50,
+        # 18/Feb/2015
 
         # Basic emails
         '[^@]+@[^@]+\.[^@]{1,5}': 250,
 
-
+        # Code
+        '\w+\([\w\.\:=-]+\)?': -250,
 
     }
 

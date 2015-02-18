@@ -9,6 +9,7 @@ import requests
 from lxml import html
 
 from filter import TextFilter
+from frequency_analysis import PWAnalyzer
 
 
 class PWID(object):
@@ -26,46 +27,86 @@ class PWID(object):
     passwords = []
 
     def __init__(self):
-        self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
+        # self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
         self.filter = TextFilter()
+        self.freq_analyzer = PWAnalyzer()
+
         self.passwords = self._load_resources()
 
+        try:
+            self.freq_analyzer.import_resource()
+        except Exception:
+            pass
+
     def identify_passwords(self, str_input):
-        matches = self.re_pattern.findall(str_input)
+        """
+        Given the string input, try to identify anything that looks like a password or identifier of interest.
+
+        :param str_input:
+        :return:
+        """
+        matches = self.filter_matches(str_input)
 
         prepared_matches = []
         match_confidence = 0
 
-        for match in matches:
-            for item in match:
+        for item in matches:
+            # for item in match:
 
-                text_score = self.filter.apply_filter(item)
-                match_confidence += text_score
-                passed_filtering = text_score >= TextFilter.SCORE_THREASHOLD
+            text_score = self.filter.apply_filter(item)
+            match_confidence += text_score
+            passed_filtering = text_score >= TextFilter.SCORE_THREASHOLD
 
-                valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
+            valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
 
-                if item and valid_length and passed_filtering:
+            if item and valid_length and passed_filtering:
+
+                # Add a weighted value of the text based on what characters are in it
+                match_confidence += self.freq_analyzer.calculate_weighted_value(item, TextFilter.PASSWORD_DISCOVERY)
+
+                prepared_matches.append(item)
+
+            for password in self.passwords:
+                if password in item and item not in prepared_matches:
+                    match_confidence += TextFilter.PASSWORD_DISCOVERY
                     prepared_matches.append(item)
-
-                for password in self.passwords:
-                    if password in item and item not in prepared_matches:
-                        match_confidence += TextFilter.PASSWORD_DISCOVERY
-                        prepared_matches.append(item)
 
         return prepared_matches, match_confidence
 
+    def filter_matches(self, str_input):
+
+        re_pattern = re.compile('[\w\S]{8,48}')
+        matches = re_pattern.findall(str_input)
+
+        filtered_matches = []
+
+        for match in matches:
+            cap_matches = re.search('[A-Z]+', match)
+            low_matches = re.search('[a-z]+', match)
+            dig_matches = re.search('\d+', match)
+
+            if cap_matches and low_matches and dig_matches:
+                filtered_matches.append(match)
+
+        return filtered_matches
+
     def _load_resources(self, path='resources/passwords.txt'):
         """
-        Opens a given resource and attempts to parse the data
+        Opens a given resource and attempts to parse the data.
+        Assumes the file is formatted with a single entry per line.
+        Adds the results to the password frequency analysis library.
+
+        :param path:
+        :return: list of entries
         """
         with open(path) as f:
             content = f.readlines()
 
         lines = [line.strip() for line in content]
 
-        return lines
+        self.freq_analyzer.import_resource(path)
 
+        return lines
 
 
 class PageScraper(object):
@@ -86,7 +127,7 @@ class PageScraper(object):
         self.page_tree = html.fromstring(page.text)
         return self.page_tree
 
-    def find(self, pattern ):
+    def find(self, pattern):
         result = self.page_tree.xpath(pattern)
         return result
 
