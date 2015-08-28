@@ -1,5 +1,6 @@
 
 import logging
+import time
 
 from scraper.scraper import PageScraper, PWID
 
@@ -13,6 +14,8 @@ class PastebinScraper(object):
 
     pw_identifier = None
     scraper = None
+
+    crawler_delay = .5
 
     password_matches = []
     base_url = 'http://pastebin.com'
@@ -45,6 +48,8 @@ class PastebinScraper(object):
 
             if possible_passwords:
                 self.password_matches.append((link, possible_passwords))
+
+            time.sleep(self.crawler_delay)
 
         return self.password_matches
 

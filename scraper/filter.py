@@ -10,13 +10,20 @@ class TextFilter(object):
     key_phrases = {
 
         # Common password dump indicators
-        'password': 100,
-        'password dump': 100,
+        'password': 1000,
+        'login': 1000,
+        'logins': 1000,
+        'user': 100,
+        'username': 100,
+        'auth_pass': 1000,
+        'auth': 50,
         'dump': 50,
         'hack': 50,
         'crack': 50,
         'netstat': 50,
         'accounts': 50,
+        'nmap': 50,
+        'wget': 50,
 
 
         # File extensions
@@ -34,6 +41,9 @@ class TextFilter(object):
         '.mp4': -50,
         '.avi': -50,
         '.mkv': -50,
+        '.gif': -50,
+        '.java': -50,
+        '.py': -50,
 
 
         # Domains
@@ -46,6 +56,48 @@ class TextFilter(object):
         '.ru': -50,
 
 
+        # Code Filters
+        'for(': -50,
+        'while(': -50,
+        '){': -50,
+        ') {': -50,
+        'if(': -50,
+        'else(': -50,
+        'for (': -50,
+        'while (': -50,
+        'if (': -50,
+        'else (': -50,
+        '++': -50,
+        ');': -50,
+        '==': -50,
+        'i=0;': -50,
+        'j=0;': -50,
+        '()': -50,
+        'jenkins': -50,
+        'unstable': -50,
+        'unknown': -50,
+        'Unknown': -50,
+        'func': -50,
+        'invoke': -50,
+        'Native': -50,
+        'u32(': -50,
+        'pointer': -50,
+        '': -50,
+
+        # HTML/CSS filters
+        'px;': -50,
+        'container': -50,
+        '.Text': -50,
+        ':hover': -50,
+        'scroll': -50,
+        'text': -50,
+        'Button': -50,
+        'toggle': -50,
+
+
+        # General Negative Phrases
+        'Minecraft': -50,
+        'C:\Windows\system32': -50,
     }
 
     # Patterns (regular expressions) that, if matched, apply scores to the target.
@@ -62,6 +114,7 @@ class TextFilter(object):
     def apply_filter(self, text):
 
         text_score = 0
+        # text = text.lower()
 
         for key_word, score in self.key_phrases.items():
             if key_word in text:
