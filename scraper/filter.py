@@ -1,10 +1,13 @@
 
 import re
+import logging
 
 
 class TextFilter(object):
 
     SCORE_THREASHOLD = 0
+
+    aggregate_score = 0
 
     # Basic dictionary of key phrases and their associated values
     key_phrases = {
@@ -128,6 +131,8 @@ class TextFilter(object):
             if matches:
                 # only apply the match to the specific pattern once
                 text_score += score
+
+        self.aggregate_score += text_score
 
         return text_score >= self.SCORE_THREASHOLD
 

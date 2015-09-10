@@ -4,6 +4,7 @@
 
 """
 
+import logging
 import re
 import requests
 from lxml import html
@@ -39,6 +40,13 @@ class PWID(object):
 
                 if item and valid_length and passed_filtering:
                     prepared_matches.append(item)
+
+        logging.info("Filter Score: {}".format(self.filter.aggregate_score))
+
+        score_length_ratio = float(self.filter.aggregate_score)/len(str_input)
+        logging.info("Score-Length Ratio: {}".format(score_length_ratio))
+
+        self.filter.aggregate_score = 0
 
         return prepared_matches
 
