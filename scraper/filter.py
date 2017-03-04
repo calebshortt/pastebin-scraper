@@ -15,7 +15,6 @@ class TextFilter(object):
         # Common password dump indicators
         'password': 1000,
         'login': 1000,
-        'logins': 1000,
         'user': 100,
         'username': 100,
         'auth_pass': 1000,
@@ -57,6 +56,7 @@ class TextFilter(object):
         '.ca': -50,
         '.de': -50,
         '.ru': -50,
+        '.onion': -50,
 
 
         # Code Filters
@@ -85,7 +85,14 @@ class TextFilter(object):
         'Native': -50,
         'u32(': -50,
         'pointer': -50,
-        '': -50,
+
+        # protocol filters
+        'http:': -50,
+        'Content-Encoding:': -50,
+        'Keep-Alive:': -50,
+        'Content-Type:': -50,
+        'Server:': -50,
+        'dev:': -50,
 
         # HTML/CSS filters
         'px;': -50,
@@ -96,6 +103,9 @@ class TextFilter(object):
         'text': -50,
         'Button': -50,
         'toggle': -50,
+        '<div': -50,
+        '<h': -50,
+        '<p': -50,
 
 
         # General Negative Phrases
@@ -109,7 +119,7 @@ class TextFilter(object):
         # HTML Tags
         '(<.+?>)': -50,
 
-        # Date / Time Stamps
+        # Date / Time Stamps (doesn't filter '2005-12-31 23:59:59.9999999' error)
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
 
         # possible entry in password dump:  <user>[: |]<password>
