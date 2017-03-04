@@ -6,7 +6,7 @@ from scraper.scraper import PageScraper, PWID
 
 
 FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+logging.basicConfig(format=FORMAT, level=logging.ERROR)
 log = logging.getLogger(__name__)
 
 
@@ -33,7 +33,8 @@ class PastebinScraper(object):
         table_links = self.scraper.find('//table[@class="maintable"]//a/@href')
         links = self.scraper.parse_table_links(table_links)
 
-        page_scraper = PageScraper("http://pastebin.com")
+        page_scraper = PageScraper("http://www.pastebin.com")
+        # page_scraper = PageScraper(None)
 
         for link in links:
 

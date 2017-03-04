@@ -51,8 +51,6 @@ class PWID(object):
         return prepared_matches
 
 
-
-
 class PageScraper(object):
     """
     Provides a few tools to scrape a page and handle the resulting output.
@@ -61,17 +59,38 @@ class PageScraper(object):
     page_tree = None
     target_url = None
 
-    def __init__(self, url):
+    def __init__(self, url=None):
         if url:
             self.page_tree = self.scrape(url)
             self.target_url = url
 
     def scrape(self, url):
-        page = requests.get(url)
+        u_agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+        accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+        al = 'en-US,en;q=0.8'
+        ae = 'gzip, deflate, sdch'
+        cc = 'max-age=0'
+        conn = 'keep-alive'
+        h = 'pastebin.com'
+
+        headers = {
+            'User-Agent': u_agent,
+            'Accept': accept,
+            'Accept-Language': al,
+            'Accept-Encoding': ae,
+            'Cache-Control': cc,
+            'Connection': conn,
+            'Host': h
+        }
+
+        sess = requests.session()
+        page = sess.get(url, headers=headers)
+
+        # page = requests.get(url, headers=headers)
         self.page_tree = html.fromstring(page.text)
         return self.page_tree
 
-    def find(self, pattern ):
+    def find(self, pattern):
         result = self.page_tree.xpath(pattern)
         return result
 

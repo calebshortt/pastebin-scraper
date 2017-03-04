@@ -112,6 +112,9 @@ class TextFilter(object):
         # Date / Time Stamps
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
 
+        # possible entry in password dump:  <user>[: |]<password>
+        '([\w.`~!@#$%&*_-]{0,20})[: |]([\w.`~!@#$%&*_-]{8,32})': 50,
+
     }
 
     def apply_filter(self, text):
