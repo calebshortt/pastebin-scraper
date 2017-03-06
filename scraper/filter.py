@@ -46,6 +46,10 @@ class TextFilter(object):
         '.gif': -50,
         '.java': -50,
         '.py': -50,
+        '.csv': -50,
+        '.vim': -50,
+        '.ts': -50,
+        '.app': -50,
 
 
         # Domains
@@ -60,6 +64,19 @@ class TextFilter(object):
 
 
         # Code Filters
+        'int': -50,
+        'float': -50,
+        'decimal': -50,
+        'char': -50,
+        '#include': -50,
+        'struct': -50,
+        'void': -50,
+        '>=': -50,
+        '<=': -50,
+        'cout': -50,
+        '<<': -50,
+        '>>': -50,
+        'null': -50,
         'for(': -50,
         'while(': -50,
         '){': -50,
@@ -85,6 +102,15 @@ class TextFilter(object):
         'Native': -50,
         'u32(': -50,
         'pointer': -50,
+        '(this': -50,
+        '(self': -50,
+        '\\n': -50,
+        '\\r': -50,
+        '#!/usr/bin/env': -50,
+        'Int32': -50,
+        'new(': -50,
+        'DEBUG': -50,
+        'timeStamp': -50,
 
         # protocol filters
         'http:': -50,
@@ -93,6 +119,7 @@ class TextFilter(object):
         'Content-Type:': -50,
         'Server:': -50,
         'dev:': -50,
+        'xmlrpc': -50,
 
         # HTML/CSS filters
         'px;': -50,
@@ -107,10 +134,20 @@ class TextFilter(object):
         '<h': -50,
         '<p': -50,
 
+        #SQL
+        'SELECT': -50,
+        'WHERE': -50,
+        'FROM': -50,
+
 
         # General Negative Phrases
         'Minecraft': -50,
         'C:\Windows\system32': -50,
+        '10.0.0.0': -50,
+        '127.0.0.1': -50,
+        'amd64': -50,
+        'x64': -50,
+        'objects.': -50,
     }
 
     # Patterns (regular expressions) that, if matched, apply scores to the target.
@@ -119,22 +156,43 @@ class TextFilter(object):
         # HTML Tags
         '(<.+?>)': -50,
 
-        # Date / Time Stamps (doesn't filter '2005-12-31 23:59:59.9999999' error)
+        # Date / Time Stamps
+        # Test Strings:
+        # 6:08
+        # 12-12-12
+        # 12-12-1234
+        # 1:22:34
+        # 07-12-12 12:34:00
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
+        '(\d{1,4})+[:\-. \/]?(\d{1,4})*[:\-. \/](\d{1,4})+': -50,
 
         # possible entry in password dump:  <user>[: |]<password>
         '([\w.`~!@#$%&*_-]{0,20})[: |]([\w.`~!@#$%&*_-]{8,32})': 50,
+
+        # code variable assignment
+        # Test String:
+        # $items = $quoteObj->getAllItems();
+        # int test = 10;
+        # var test = 1234235;
+        # var test = "test"
+        # test = 'test'
+        '([\w\d\$\-\>\<\(\)]*[ \t]*)([\w\d\$\-\>\<\(\)]+) = ([\w\d\$\-\>\<\(\)\"\']+)[\;\n\r]': -50,
+
+        # Basic base url identifier
+        '(http[s]?://)(www.)?([\w\d\-\_\+]+)\.([\w\d]+)([\:]?\d*)/': -50,
 
     }
 
     def apply_filter(self, text):
 
         text_score = 0
-        # text = text.lower()
+        text = text.lower()
 
         for key_word, score in self.key_phrases.items():
+            key_word = key_word.lower()
             if key_word in text:
-                text_score += score
+                occurrences = [m.start() for m in re.finditer(re.escape(key_word), text)]
+                text_score += len(occurrences)*score
 
         for pattern, score in self.patterns.items():
 
@@ -143,7 +201,7 @@ class TextFilter(object):
 
             if matches:
                 # only apply the match to the specific pattern once
-                text_score += score
+                text_score += len(matches)*score
 
         self.aggregate_score += text_score
 
