@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     print('Executing...')
 
-    pastebin_scraper = PastebinScraper()
+    pastebin_scraper = PastebinScraper(fast=False)
     password_matches = pastebin_scraper.analyze()
 
     print('Done.\nPasswords:')

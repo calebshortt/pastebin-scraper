@@ -21,11 +21,14 @@ class PastebinScraper(object):
     base_url = 'http://pastebin.com'
     scraper_target_url = 'http://pastebin.com/archive'
 
+    fast = False
+
     def __init__(self, **kwargs):
 
         self.base_url = kwargs.get('base_url', self.base_url)
+        self.fast = kwargs.get('fast', self.fast)
         self.scraper = PageScraper(self.base_url)
-        self.pw_identifier = PWID()
+        self.pw_identifier = PWID(fast=self.fast)
 
     def analyze(self):
 

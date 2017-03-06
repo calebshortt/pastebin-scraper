@@ -5,6 +5,11 @@ import logging
 
 class TextFilter(object):
 
+    fast = False
+
+    def __init__(self, **kwargs):
+        self.fast = kwargs.get('fast', self.fast)
+
     SCORE_THREASHOLD = 0
 
     aggregate_score = 0
@@ -211,14 +216,16 @@ class TextFilter(object):
                 occurrences = [m.start() for m in re.finditer(re.escape(key_word), text)]
                 text_score += len(occurrences)*score
 
-        for pattern, score in self.patterns.items():
+        # If fast is set, skip pattern matching
+        if not self.fast:
+            for pattern, score in self.patterns.items():
 
-            re_pattern = re.compile(pattern)
-            matches = re_pattern.findall(text)
+                re_pattern = re.compile(pattern)
+                matches = re_pattern.findall(text)
 
-            if matches:
-                # only apply the match to the specific pattern once
-                text_score += len(matches)*score
+                if matches:
+                    # only apply the match to the specific pattern once
+                    text_score += len(matches)*score
 
         self.aggregate_score += text_score
 

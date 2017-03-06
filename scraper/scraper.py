@@ -22,9 +22,14 @@ class PWID(object):
     PW_MAX_LENGTH = 48
 
     filter = None
+    fast = False
 
-    def __init__(self):
-        self.re_pattern = re.compile('(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)')
+    generic_pw_pattern = '(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)'
+    # generic_pw_pattern = '([\w\d\S\$]{0,32})'
+
+    def __init__(self, **kwargs):
+        self.fast = kwargs.get('fast', self.fast)
+        self.re_pattern = re.compile(self.generic_pw_pattern)
         self.filter = TextFilter()
 
     def identify_passwords(self, str_input):
