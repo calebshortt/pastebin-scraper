@@ -50,6 +50,12 @@ class TextFilter(object):
         '.vim': -50,
         '.ts': -50,
         '.app': -50,
+        '.c': -50,
+        '.txt': -50,
+        '.wav': -50,
+        '.mp3': -50,
+        '.pb': -50,
+        '.dmg': -50,
 
 
         # Domains
@@ -61,6 +67,7 @@ class TextFilter(object):
         '.de': -50,
         '.ru': -50,
         '.onion': -50,
+        '.org': -50,
 
 
         # Code Filters
@@ -111,6 +118,9 @@ class TextFilter(object):
         'new(': -50,
         'DEBUG': -50,
         'timeStamp': -50,
+        ';\n': -50,
+        ';\r': -50,
+        '#!/bin/bash': -50,
 
         # protocol filters
         'http:': -50,
@@ -133,6 +143,7 @@ class TextFilter(object):
         '<div': -50,
         '<h': -50,
         '<p': -50,
+        'W3C//DTD': -50,
 
         #SQL
         'SELECT': -50,
@@ -148,6 +159,7 @@ class TextFilter(object):
         'amd64': -50,
         'x64': -50,
         'objects.': -50,
+        'x86_64': -15,
     }
 
     # Patterns (regular expressions) that, if matched, apply scores to the target.
@@ -163,11 +175,12 @@ class TextFilter(object):
         # 12-12-1234
         # 1:22:34
         # 07-12-12 12:34:00
+        # 05-Mar-17
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
-        '(\d{1,4})+[:\-. \/]?(\d{1,4})*[:\-. \/](\d{1,4})+': -50,
+        '(\d{1,4})+[:\-. \/]?([\d\w]{1,4})*[:\-. \/](\d{1,4})+': -50,
 
         # possible entry in password dump:  <user>[: |]<password>
-        '([\w.`~!@#$%&*_-]{0,20})[: |]([\w.`~!@#$%&*_-]{8,32})': 50,
+        '([\w.`~!@#$%&*_-]{0,20})[: |-]([\w.`~!@#$%&*_-]{8,32})': 50,
 
         # code variable assignment
         # Test String:
@@ -176,10 +189,14 @@ class TextFilter(object):
         # var test = 1234235;
         # var test = "test"
         # test = 'test'
-        '([\w\d\$\-\>\<\(\)]*[ \t]*)([\w\d\$\-\>\<\(\)]+) = ([\w\d\$\-\>\<\(\)\"\']+)[\;\n\r]': -50,
+        # yb=50;
+        # String test = 'test'; // this is an inline comment
+        # x1=e.offsetX;
+        # int[] things = {4,6,78,12,34};
+        '([\w\d\$\-\>\<\(\)\[\]\{\}]*[ \t]?)([\w\d\$\-\>\<\(\)\[\]\{\}]*)[ \t]?=[ \t]?([\.\w\d\$\-\>\<\(\)\"\'\[\]\{\}\,]+)[\;]?[ ]*[\n\r]?': -50,
 
         # Basic base url identifier
-        '(http[s]?://)(www.)?([\w\d\-\_\+]+)\.([\w\d]+)([\:]?\d*)/': -50,
+        '(http[s]?://)(www.)?([\w\d\-\_\+]+)\.([\w\d]+)([\:]?\d*)[/]?': -50,
 
     }
 
