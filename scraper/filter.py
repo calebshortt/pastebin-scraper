@@ -68,6 +68,8 @@ class TextFilter(object):
         '.dmg': -100,
         '.pak': -100,
         '.dll': -100,
+        '.mod': -100,
+        '.json': -100,
 
 
         # Domains
@@ -80,6 +82,7 @@ class TextFilter(object):
         '.ru': -50,
         '.onion': -50,
         '.org': -50,
+        '.be': -50,
 
 
         # Code Filters
@@ -156,6 +159,10 @@ class TextFilter(object):
         'Python3': -50,
         'Python': -50,
         'import': -50,
+        'package': -50,
+        '__init__': -50,
+        'utf8': -50,
+        'unicode': -50,
 
         # protocol filters
         'http:': -50,
@@ -167,6 +174,10 @@ class TextFilter(object):
         'dev:': -50,
         'xmlrpc': -50,
         'proxy': -50,
+        '\\\\': -50,
+        'sslv2': -50,
+        'sslv3': -50,
+        'json': -50,
 
         # Movie files patterns
         'x264': -50,
@@ -195,13 +206,18 @@ class TextFilter(object):
 
         # General Negative Phrases
         'Minecraft': -50,
-        'C:\Windows\system32': -50,
+        'C:\\Windows\\system32': -50,
         '10.0.0.0': -50,
         '127.0.0.1': -50,
         'amd64': -50,
         'x64': -50,
         'objects.': -50,
-        'x86_64': -15,
+        'x86_64': -50,
+        'EXTM3U': -50,
+        'EXTINF': -50,
+        'browser': -50,
+        'hosting': -50,
+        'web': -50,
     }
 
     # Patterns (regular expressions) that, if matched, apply scores to the target.
@@ -211,7 +227,7 @@ class TextFilter(object):
         '(<.+?>)': -50,
 
         # Basic hash values, eg: 0x196e17d4
-        '(0x[\da-fa-f]{2,8})': -50,
+        '(0x[\da-fA-F]{2,8})': -50,
 
         # Simple IPv4 pattern
         '([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})(:\d{2,4})?': -50,
@@ -245,7 +261,7 @@ class TextFilter(object):
         # String test = 'test'; // this is an inline comment
         # x1=e.offsetX;
         # int[] things = {4,6,78,12,34};
-        '([\w\d\$\-\>\<\(\)\[\]\{\}]*[ \t]?)([\w\d\$\-\>\<\(\)\[\]\{\}]*)[ \t]?=[ \t]?([\.\w\d\$\-\>\<\(\)\"\'\[\]\{\}\,]+)[\;]?[ ]*[\n\r]?': -50,
+        '([\w\d\$\-\>\<\(\)\[\]\{\}]*[ \t]?)([\w\d\$\-\>\<\(\)\[\]\{\}]*)[ \t]?=[ \t]?([\.\w\d\$\-\>\<\(\)\"\'\[\]\{\}\,]+)[\;]?[ ]*[\n\r]?': -500,
 
         # Basic base url identifier
         '(http[s]?://)(www.)?([\w\d\-\_\+]+)\.([\w\d]+)([\:]?\d*)[/]?': -50,

@@ -31,8 +31,8 @@ class PWID(object):
     filter = None
     fast = False
 
-    generic_pw_pattern = '(\w+\d+[\w\d\S]+)|(\d+\w+[\w\d\S]+)'
-    # generic_pw_pattern = '([\w\d\S\$]{0,32})'
+    # generic_pw_pattern = '(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[A-Za-z0-9@#$%^&+=\-]{8,32}'
+    generic_pw_pattern = '(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-]{8,32}'
 
     def __init__(self, **kwargs):
         self.fast = kwargs.get('fast', self.fast)
@@ -41,8 +41,8 @@ class PWID(object):
 
     def identify_passwords(self, str_input):
 
-        if len(str_input) > self.MAX_STR_LEN:
-            str_input = str_input[:self.MAX_STR_LEN]
+        # if len(str_input) > self.MAX_STR_LEN:
+        #     str_input = str_input[:self.MAX_STR_LEN]
 
         log.debug("Finding matches...")
         matches = self.re_pattern.findall(str_input)
@@ -52,15 +52,16 @@ class PWID(object):
 
         log.debug("Searching Total: %s possible matches..." % len(matches))
 
-        for match in matches:
+        # for match in matches:
+        for item in matches:
             # log.debug("Filtering %s sub-matches" % len(match))
-            for item in match:
+            # for item in match:
 
-                passed_filtering = self.filter.apply_filter(item)
-                valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
+            passed_filtering = self.filter.apply_filter(item)
+            valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
 
-                if item and valid_length and passed_filtering:
-                    prepared_matches.append(item)
+            if item and valid_length and passed_filtering:
+                prepared_matches.append(item)
 
         logging.info("Filter Score: {}".format(self.filter.aggregate_score))
 
