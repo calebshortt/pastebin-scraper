@@ -13,7 +13,7 @@ from filter import TextFilter
 
 
 FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.WARNING)
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 
@@ -30,19 +30,20 @@ class PWID(object):
 
     filter = None
     fast = False
+    ultra_verbose = True
 
     # generic_pw_pattern = '(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[A-Za-z0-9@#$%^&+=\-]{8,32}'
     generic_pw_pattern = '(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-]{8,32}'
 
     def __init__(self, **kwargs):
         self.fast = kwargs.get('fast', self.fast)
+        self.ultra_verbose = kwargs.get('ultra_verbose', self.ultra_verbose)
         self.re_pattern = re.compile(self.generic_pw_pattern)
         self.filter = TextFilter()
 
     def identify_passwords(self, str_input):
 
-        # if len(str_input) > self.MAX_STR_LEN:
-        #     str_input = str_input[:self.MAX_STR_LEN]
+        self.filter.aggregate_score = 0
 
         log.debug("Finding matches...")
         matches = self.re_pattern.findall(str_input)
@@ -68,9 +69,12 @@ class PWID(object):
         score_length_ratio = float(self.filter.aggregate_score)/len(str_input)
         logging.info("Score-Length Ratio: {}".format(score_length_ratio))
 
-        self.filter.aggregate_score = 0
+        # If ultra-verbose, apply filters to ENTIRE text if something that looks like a password is found
+        if self.ultra_verbose and len(prepared_matches) > 0:
+            log.info('Using ultra verbose filter on entire text. This will affect aggregate score...')
+            self.filter.apply_filter(str_input[:512])
 
-        return prepared_matches
+        return prepared_matches, self.filter.aggregate_score
 
 
 class PageScraper(object):

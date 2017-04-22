@@ -22,13 +22,15 @@ class PastebinScraper(object):
     scraper_target_url = 'http://pastebin.com/archive'
 
     fast = False
+    ultra_verbose = True
 
     def __init__(self, **kwargs):
 
         self.base_url = kwargs.get('base_url', self.base_url)
         self.fast = kwargs.get('fast', self.fast)
+        self.ultra_verbose = kwargs.get('ultra_verbose', self.ultra_verbose)
         self.scraper = PageScraper(url=self.base_url, scrape=False)
-        self.pw_identifier = PWID(fast=self.fast)
+        self.pw_identifier = PWID(fast=self.fast, ultra_verbose=self.ultra_verbose)
 
     def analyze(self):
 
@@ -52,13 +54,14 @@ class PastebinScraper(object):
             text = page_scraper.find('//textarea[@class="paste_code"]/text()')
 
             possible_passwords = None
+            score = 0
             if text:
                 log.debug("Running password identifier...")
-                possible_passwords = self.pw_identifier.identify_passwords(text[0])
+                possible_passwords, score = self.pw_identifier.identify_passwords(text[0])
                 log.debug("Done")
 
             if possible_passwords:
-                self.password_matches.append((link, possible_passwords))
+                self.password_matches.append((link, score, possible_passwords))
 
             time.sleep(self.crawler_delay)
 

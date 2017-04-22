@@ -4,7 +4,7 @@ import logging
 
 
 FORMAT = '%(asctime)-15s [Filter] %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.WARNING)
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -227,10 +227,16 @@ class TextFilter(object):
         '(<.+?>)': -50,
 
         # Basic hash values, eg: 0x196e17d4
-        '(0x[\da-fA-F]{2,8})': -50,
+        '(0x|\#)([\da-fA-F]{2,8})': -50,
 
         # Simple IPv4 pattern
         '([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})(:\d{2,4})?': -50,
+
+        # Basic getters/setters in code
+        '(get|set|create|delete)([\w]{1,16})': -100,
+
+        # Simple CSS file identifier
+        '[\.\#\@]?([\w\-\:]{1,32})[ ]{0,16}(\{|\()': -100,
 
         # Date / Time Stamps
         # Test Strings:
