@@ -3,6 +3,11 @@ import re
 import logging
 
 
+FORMAT = '%(asctime)-15s %(message)s [Filter]'
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+
 class TextFilter(object):
 
     fast = False
@@ -181,11 +186,20 @@ class TextFilter(object):
         # 1:22:34
         # 07-12-12 12:34:00
         # 05-Mar-17
+
+        # <img src="Sidebar image"><font style="display:none;">
+        # <style>#ctl00_cpMain_ctl01_UserNetwork1_ctrlMessage {display:none;}span.blacktext12{background-image:url('Doorknocker');height:550px;display:block!important;}</style>
+
+
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
-        '(\d{1,4})+[:\-. \/]?([\d\w]{1,4})*[:\-. \/](\d{1,4})+': -50,
+        '(\d{1,4})+[:\-. \/]?([\d\w]{1,4})[:\-. \/](\d{1,4})': -50,
 
         # possible entry in password dump:  <user>[: |]<password>
-        '([\w.`~!@#$%&*_-]{0,20})[: |-]([\w.`~!@#$%&*_-]{8,32})': 50,
+        '([\w.`~!@#$%&*_-]{0,20})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})': 100,
+
+        # possible email address password dump
+        '([\w\.\+\-]+@[\w\.\+\-]+\.[\w]{1,10})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})': 100,
+
 
         # code variable assignment
         # Test String:
@@ -211,19 +225,27 @@ class TextFilter(object):
         text = text.lower()
 
         for key_word, score in self.key_phrases.items():
+            logger.debug('Applying filter on keyword: %s' % key_word)
             key_word = key_word.lower()
             if key_word in text:
+                logger.debug('Success! Keyword is in text.')
                 occurrences = [m.start() for m in re.finditer(re.escape(key_word), text)]
                 text_score += len(occurrences)*score
 
         # If fast is set, skip pattern matching
         if not self.fast:
+
+            logger.debug('Using advanced (slower) patterns... (fast = false)')
+
             for pattern, score in self.patterns.items():
+
+                logger.debug('Checking pattern: %s' % pattern)
 
                 re_pattern = re.compile(pattern)
                 matches = re_pattern.findall(text)
 
                 if matches:
+                    logger.debug('Success! Pattern is in text.')
                     # only apply the match to the specific pattern once
                     text_score += len(matches)*score
 

@@ -12,6 +12,11 @@ from lxml import html
 from filter import TextFilter
 
 
+FORMAT = '%(asctime)-15s %(message)s'
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
+
 class PWID(object):
     """
     Finds passwords that are characters and digits, and are at least 8 characters long.
@@ -20,6 +25,8 @@ class PWID(object):
 
     PW_MIN_LENGTH = 8
     PW_MAX_LENGTH = 48
+
+    MAX_STR_LEN = 1024
 
     filter = None
     fast = False
@@ -33,11 +40,20 @@ class PWID(object):
         self.filter = TextFilter()
 
     def identify_passwords(self, str_input):
+
+        if len(str_input) > self.MAX_STR_LEN:
+            str_input = str_input[:self.MAX_STR_LEN]
+
+        log.debug("Finding matches...")
         matches = self.re_pattern.findall(str_input)
+        log.debug("Done")
 
         prepared_matches = []
 
+        log.debug("Searching Total: %s possible matches..." % len(matches))
+
         for match in matches:
+            # log.debug("Filtering %s sub-matches" % len(match))
             for item in match:
 
                 passed_filtering = self.filter.apply_filter(item)
@@ -64,9 +80,10 @@ class PageScraper(object):
     page_tree = None
     target_url = None
 
-    def __init__(self, url=None):
+    def __init__(self, url=None, scrape=True):
         if url:
-            self.page_tree = self.scrape(url)
+            if scrape:
+                self.page_tree = self.scrape(url)
             self.target_url = url
 
     def scrape(self, url):
@@ -88,11 +105,14 @@ class PageScraper(object):
             'Host': h
         }
 
+        log.debug("Sending request to: %s" % url)
         sess = requests.session()
         page = sess.get(url, headers=headers)
 
         # page = requests.get(url, headers=headers)
+        log.debug("Generating page tree")
         self.page_tree = html.fromstring(page.text)
+        log.debug("Done")
         return self.page_tree
 
     def find(self, pattern):
