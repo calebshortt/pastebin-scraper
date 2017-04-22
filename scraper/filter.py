@@ -178,6 +178,9 @@ class TextFilter(object):
         # HTML Tags
         '(<.+?>)': -50,
 
+        # Basic hash values, eg: 0x196e17d4
+        '(0x[\da-fa-f]{2,8})': -50,
+
         # Date / Time Stamps
         # Test Strings:
         # 6:08
