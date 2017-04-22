@@ -153,6 +153,9 @@ class TextFilter(object):
         'public': -50,
         'private': -50,
         'static': -50,
+        'Python3': -50,
+        'Python': -50,
+        'import': -50,
 
         # protocol filters
         'http:': -50,
