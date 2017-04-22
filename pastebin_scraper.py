@@ -17,7 +17,7 @@ if __name__ == "__main__":
     pastebin_scraper = PastebinScraper(fast=False)
     password_matches = pastebin_scraper.analyze()
 
-    print('Done.\nPasswords:')
+    print('Done.\nPotential Passwords:')
 
     for pwm in password_matches:
         print pwm

@@ -195,10 +195,10 @@ class TextFilter(object):
         '(\d{1,4})+[:\-. \/]?([\d\w]{1,4})[:\-. \/](\d{1,4})': -50,
 
         # possible entry in password dump:  <user>[: |]<password>
-        '([\w.`~!@#$%&*_-]{0,20})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})': 100,
+        '^([\w.`~!@#$%&*_-]{0,30})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})([ ]+)?$': 100,
 
         # possible email address password dump
-        '([\w\.\+\-]+@[\w\.\+\-]+\.[\w]{1,10})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})': 100,
+        '^([\w\.\+\-]+@[\w\.\+\-]+\.[\w]{1,10})[: |-]+([\w\.\`\~\!\@\#\$\%\&\*\_\-\^\*]{4,32})([ ]+)?$': 100,
 
 
         # code variable assignment
@@ -241,7 +241,7 @@ class TextFilter(object):
 
                 logger.debug('Checking pattern: %s' % pattern)
 
-                re_pattern = re.compile(pattern)
+                re_pattern = re.compile(pattern, re.MULTILINE)
                 matches = re_pattern.findall(text)
 
                 if matches:
