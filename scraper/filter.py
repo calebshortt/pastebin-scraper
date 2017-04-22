@@ -66,6 +66,8 @@ class TextFilter(object):
         '.mp3': -50,
         '.pb': -50,
         '.dmg': -50,
+        '.pak': -50,
+        '.dll': -50,
 
 
         # Domains
@@ -85,8 +87,11 @@ class TextFilter(object):
         'float': -50,
         'decimal': -50,
         'char': -50,
+        'string': -50,
         '#include': -50,
+        'exception': -100,
         'struct': -50,
+        'namespace': -50,
         'void': -50,
         '>=': -50,
         '<=': -50,
@@ -114,11 +119,15 @@ class TextFilter(object):
         'unstable': -50,
         'unknown': -50,
         'Unknown': -50,
+        'resources': -50,
+        'image': -50,
+        'driver': -50,
         'func': -50,
         'invoke': -50,
         'Native': -50,
         'u32(': -50,
         'pointer': -50,
+        '.length': -50,
         '(this': -50,
         '(self': -50,
         '\\n': -50,
@@ -131,9 +140,17 @@ class TextFilter(object):
         ';\n': -50,
         ';\r': -50,
         '#!/bin/bash': -50,
+        'bin': -50,
+        'system32': -50,
+        'windows': -50,
+        'DOCTYPE': -50,
+        'public': -50,
+        'private': -50,
+        'static': -50,
 
         # protocol filters
         'http:': -50,
+        'https:': -50,
         'Content-Encoding:': -50,
         'Keep-Alive:': -50,
         'Content-Type:': -50,
@@ -181,6 +198,9 @@ class TextFilter(object):
         # Basic hash values, eg: 0x196e17d4
         '(0x[\da-fa-f]{2,8})': -50,
 
+        # Simple IPv4 pattern
+        '([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})\.([\d]{2,3})(:\d{2,4})?': -50,
+
         # Date / Time Stamps
         # Test Strings:
         # 6:08
@@ -189,11 +209,6 @@ class TextFilter(object):
         # 1:22:34
         # 07-12-12 12:34:00
         # 05-Mar-17
-
-        # <img src="Sidebar image"><font style="display:none;">
-        # <style>#ctl00_cpMain_ctl01_UserNetwork1_ctrlMessage {display:none;}span.blacktext12{background-image:url('Doorknocker');height:550px;display:block!important;}</style>
-
-
         '((\d{1,2}|\d{4})[:-]\d{1,2}[:-](\d{4}|\d{1,2}))': -50,
         '(\d{1,4})+[:\-. \/]?([\d\w]{1,4})[:\-. \/](\d{1,4})': -50,
 
