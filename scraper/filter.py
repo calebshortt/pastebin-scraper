@@ -3,7 +3,7 @@ import re
 import logging
 
 
-FORMAT = '%(asctime)-15s %(message)s [Filter]'
+FORMAT = '%(asctime)-15s [Filter] %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
