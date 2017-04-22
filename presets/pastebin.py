@@ -41,7 +41,6 @@ class PastebinScraper(object):
         links = self.scraper.parse_table_links(table_links)
 
         page_scraper = PageScraper("http://www.pastebin.com", scrape=False)
-        # page_scraper = PageScraper(None)
 
         log.info("Links Found: %s" % len(links))
 

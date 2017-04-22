@@ -21,7 +21,5 @@ if __name__ == "__main__":
 
     for pwm in password_matches:
         print pwm
-    else:
-        print('[]')
 
 

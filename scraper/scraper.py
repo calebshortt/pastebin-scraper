@@ -32,6 +32,8 @@ class PWID(object):
     fast = False
     ultra_verbose = True
 
+    MAX_VERBOSE_ANALYSIS = 512
+
     # generic_pw_pattern = '(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[A-Za-z0-9@#$%^&+=\-]{8,32}'
     generic_pw_pattern = '(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-]{8,32}'
 
@@ -55,8 +57,6 @@ class PWID(object):
 
         # for match in matches:
         for item in matches:
-            # log.debug("Filtering %s sub-matches" % len(match))
-            # for item in match:
 
             passed_filtering = self.filter.apply_filter(item)
             valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
@@ -72,7 +72,7 @@ class PWID(object):
         # If ultra-verbose, apply filters to ENTIRE text if something that looks like a password is found
         if self.ultra_verbose and len(prepared_matches) > 0:
             log.info('Using ultra verbose filter on entire text. This will affect aggregate score...')
-            self.filter.apply_filter(str_input[:512])
+            self.filter.apply_filter(str_input[:self.MAX_VERBOSE_ANALYSIS])
 
         return prepared_matches, self.filter.aggregate_score
 
