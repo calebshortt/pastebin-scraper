@@ -41,7 +41,7 @@ class ScraperTest(unittest.TestCase):
             matches, score = pwid.identify_passwords(text)
 
             print score, matches
-            assert len(matches) > 0
+            assert score > 0
 
     def test_PWID_no_passwords(self):
 
@@ -53,7 +53,7 @@ class ScraperTest(unittest.TestCase):
             matches, score = pwid.identify_passwords(text)
 
             print score, matches
-            assert len(matches) == 0
+            assert score <= 0
 
 
 
