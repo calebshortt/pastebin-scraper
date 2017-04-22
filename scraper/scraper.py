@@ -13,7 +13,7 @@ from filter import TextFilter
 
 
 FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+logging.basicConfig(format=FORMAT, level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
