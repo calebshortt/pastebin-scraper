@@ -4,7 +4,7 @@ import logging
 
 
 FORMAT = '%(asctime)-15s [Filter] %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
