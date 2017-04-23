@@ -48,6 +48,8 @@ class TextFilter(object):
         '.jar': -100,
         '.php': -100,
         '.jpeg': -100,
+        '.tar': -100,
+        '.gz': -100,
         '.jpg': -100,
         '.inc': -100,
         '.mp4': -100,

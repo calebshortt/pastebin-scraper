@@ -1,0 +1,78 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-logo="https://s12.postimg.org/i501il4xp/Logo_transp.png" group-title="z-omitir", 24 HORAS DE DEMO
+http://streaming203.radionomy.com:80/City-Dance-Radio
+#EXTINF:-1 tvg-logo="https://s12.postimg.org/i501il4xp/Logo_transp.png" group-title="z-omitir",CONTRATACIONES WHATSAPP 5511343161
+http://streaming203.radionomy.com:80/City-Dance-Radio
+#EXTINF:-1 tvg-logo="https://s12.postimg.org/i501il4xp/Logo_transp.png" group-title="z-omitir",SERVICIO TECNICO 10 AM  8 PM
+http://streaming203.radionomy.com:80/City-Dance-Radio
+#EXTINF:-1 tvg-logo="https://s12.postimg.org/i501il4xp/Logo_transp.png" group-title="z-omitir",== ENTRETENIMIENTO ==
+http://streaming203.radionomy.com:80/City-Dance-Radio
+#EXTINF:-1 tvg-id="A&E" tvg-name="A&E" tvg-logo="http://z.cdn.entutele.com/media/channels/medium/ae.gif" group-title="ENTRETENIMIENTO",A&E
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6010/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="http://www.amastv.com/img/logo_amas.png" group-title="ENTRETENIMIENTO",A+ (azteca plus)
+http://exabytetv.zapto.org/exabytetv-esgratis/gc/@FHGY-1011000111101111001101100001001-ExabyteTV/2141/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="http://y.cdn.entutele.com/media/channels/big/antena-3.gif" group-title="ENTRETENIMIENTO",Antena 3
+http://hlslive.lcdn.une.net.co/v1/AUTH_HLSLIVE/ANT3/tu1_1.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="http://mw1.iptv66.tv/stalker_portal/misc/logos/320/113.png" group-title="ENTRETENIMIENTO",Antena 3 Internacional
+http://a3live-lh.akamaihd.net:80/i/antena3_1@35248/master.m3u8
+
+#EXTINF:-1 tvg-id="AXN" tvg-name="AXN" tvg-logo="http://y.cdn.entutele.com/media/channels/big/axn.gif" group-title="ENTRETENIMIENTO",AXN
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6012/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Az Clic" tvg-name="Az Clic" tvg-logo="http://y.cdn.entutele.com/media/channels/big/az-clic.gif" group-title="ENTRETENIMIENTO",Az Clic
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6171/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Az Corazón" tvg-name="Az Corazón" tvg-logo="http://y.cdn.entutele.com/media/channels/big/az-corazon.gif" group-title="ENTRETENIMIENTO",Az Corazón
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6401/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Az Mundo" tvg-name="Az Mundo" tvg-logo="http://y.cdn.entutele.com/media/channels/big/az-mundo.gif" group-title="ENTRETENIMIENTO",Az Mundo
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6032/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Azteca 7" tvg-name="Azteca 7" tvg-logo="http://y.cdn.entutele.com/media/channels/big/azteca-7.gif" group-title="ENTRETENIMIENTO",Azteca 7
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6265/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="El Trece" tvg-name="El Trece" tvg-logo="http://www.onlinetv.planetfools.com/imagenes/azteca-trece.png" group-title="ENTRETENIMIENTO",Azteca 13
+http://aztecalive-lh.akamaihd.net/i/0oxnvzh8a_1@175671/master.m3u8
+
+#EXTINF:-1 tvg-id="Canal 5 HD" tvg-name="Canal 5 HD" tvg-logo="http://y.cdn.entutele.com/media/channels/big/canal-5-hd.gif" group-title="ENTRETENIMIENTO",Canal 5 HD
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6647/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Comedy Central" tvg-name="Comedy Central" tvg-logo="http://y.cdn.entutele.com/media/channels/big/comedy-central-hd.gif" group-title="ENTRETENIMIENTO",Comedy Central
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6288/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="" tvg-logo="http://puu.sh/v4uml/cfc7b12ce6.png" group-title="ENTRETENIMIENTO",Crimen e Investigacion
+http://exabytetv.info/elfutbol.php?token=@FHGY-1011000111101111001101100001001-ExabyteTV&canal=MjI=&f=.m3u8
+
+#EXTINF:-1 tvg-id="Home and Health" tvg-name="Home and Health" tvg-logo="http://y.cdn.entutele.com/media/channels/big/home-and-health.gif" group-title="ENTRETENIMIENTO",Discovery H&H
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6044/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Distrito Comedia" tvg-name="Distrito Comedia" tvg-logo="http://y.cdn.entutele.com/media/channels/big/distrito-comedia.gif" group-title="ENTRETENIMIENTO",Distrito Comedia
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6026/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="E! Entertainment Television" tvg-name="E! Entertainment Television" tvg-logo="http://y.cdn.entutele.com/media/channels/big/e-entertainment-television.gif" group-title="ENTRETENIMIENTO",E! Entertainment
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6003/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="El Gourmet" tvg-name="El Gourmet" tvg-logo="http://y.cdn.entutele.com/media/channels/big/el-gourmet.gif" group-title="ENTRETENIMIENTO",El Gourmet
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6022/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Fox" tvg-name="Fox" tvg-logo="http://y.cdn.entutele.com/media/channels/big/fox.gif" group-title="ENTRETENIMIENTO",Fox
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/5994/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Fox Life" tvg-name="Fox Life" tvg-logo="http://y.cdn.entutele.com/media/channels/big/fox-life.gif" group-title="ENTRETENIMIENTO",Fox Life
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6025/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="FX" tvg-name="FX" tvg-logo="http://y.cdn.entutele.com/media/channels/big/fx.gif" group-title="ENTRETENIMIENTO",FX
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/7929/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Gala tv" tvg-name="Gala tv" tvg-logo="http://y.cdn.entutele.com/media/channels/big/gala-tv.gif" group-title="ENTRETENIMIENTO",Gala TV
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/7696/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Glitz" tvg-name="Glitz" tvg-logo="http://y.cdn.entutele.com/media/channels/big/glitz.gif" group-title="ENTRETENIMIENTO",Glitz
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/6024/visita-exabytetv.m3u8
+
+#EXTINF:-1 tvg-id="Hola TV" tvg-name="Hola TV" tvg-logo="http://revistasenal.com/wp-content/uploads/2015/03/HOLA-TV-LOGO.jpg" group-title="ENTRETENIMIENTO",Hola TV
+http://exabytetv.zapto.org/exabytetv-esgratis/total/3/@FHGY-1011000111101111001101100001001-ExabyteTV/7682/visita-exabytetv.m3u8
