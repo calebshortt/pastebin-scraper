@@ -6,20 +6,38 @@
 
 """
 
+import time
 
 from presets.pastebin import PastebinScraper
 
 
 if __name__ == "__main__":
 
-    print('Executing...')
+    # print('Executing...')
 
-    pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True)
-    password_matches = pastebin_scraper.analyze()
+    max_iterations = 100
+    curr_iteration = 0
+    wait_time_s = 300   # 5 minutes (300s)
+    main_start_time = time.time()
 
-    print('Done.\nPotential Passwords:')
+    while curr_iteration < max_iterations:
 
-    for pwm in password_matches:
-        print pwm
+        cur_start_time = time.time()
+        print('Executing Iteration %s of %s...' % (curr_iteration, max_iterations))
+
+        pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True)
+        password_matches = pastebin_scraper.analyze()
+
+        print('Potential Passwords:')
+
+        for pwm in password_matches:
+            print pwm
+
+        print('Execution Time: %s seconds.' % (time.time() - cur_start_time))
+        print('Waiting %s seconds...' % wait_time_s)
+        time.sleep(wait_time_s)
+        curr_iteration += 1
+
+    print('Total System Execution Time: %s seconds' % (time.time() - main_start_time))
 
 

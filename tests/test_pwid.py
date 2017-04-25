@@ -62,7 +62,7 @@ class ScraperTest(unittest.TestCase):
 
     # def test_PWID_anomalies(self):
     #
-    #     pwid = PWID()
+    #     pwid = PWID(ultra_verbose=True, fast=False)
     #
     #     for file_path in self.anomalies:
     #         text = load_corpus(file_path)
@@ -70,7 +70,8 @@ class ScraperTest(unittest.TestCase):
     #         matches, score = pwid.identify_passwords(text)
     #
     #         print score, matches
-    #         assert score > 0
+    #         print pwid.filter.aggregate_score
+    #         # assert score > 0
 
 
 
