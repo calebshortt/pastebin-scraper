@@ -34,9 +34,7 @@ class PWID(object):
 
     MAX_VERBOSE_ANALYSIS = 512
 
-    # generic_pw_pattern = '(?=.*?\d)(?=.*?[A-Z])(?=.*?[a-z])[A-Za-z0-9@#$%^&+=\-]{8,32}'
-    # generic_pw_pattern = '((?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]{8,32})([ \n\|:]|$)'
-    generic_pw_pattern = '((?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]{8,32})'
+    generic_pw_pattern = '((?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?\d)(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[A-Z])(?=[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]*?[a-z])[A-Za-z0-9\@\#\$\%\^\&\+\=\-\!]{8,32})([ \n\|:]|$)'
 
     def __init__(self, **kwargs):
         self.fast = kwargs.get('fast', self.fast)
@@ -57,7 +55,7 @@ class PWID(object):
         log.debug("Searching Total: %s possible matches..." % len(matches))
 
         # for match in matches:
-        for item in matches:
+        for item, tail in matches:
 
             passed_filtering = self.filter.apply_filter(item)
             valid_length = self.PW_MIN_LENGTH <= len(item) <= self.PW_MAX_LENGTH
