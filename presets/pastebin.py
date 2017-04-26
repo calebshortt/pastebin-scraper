@@ -1,8 +1,10 @@
 
 import logging
 import time
+import uuid
 
 from scraper.scraper import PageScraper, PWID
+from settings import ROOT_DIR
 
 
 FORMAT = '%(asctime)-15s %(message)s'
@@ -23,12 +25,34 @@ class PastebinScraper(object):
 
     fast = False
     ultra_verbose = True
+    save_filtered = False
+
+    text_save_path = ""
 
     def __init__(self, **kwargs):
+        """
+
+        :param kwargs:
+            base_url:
+                (string) The base url of the site to scrape. Default is 'http://pastebin.com'.
+
+            fast:
+                (boolean) execute a fast scrape -- will not run pattern filters (which are slower).
+                Will only run a keyword search on the text. Default is False.
+
+            save_filtered:
+                (boolean) If a text passes the filters with a score greater than 0, save the text to file.
+                Default is False.
+
+        :return:
+        """
+
+        self.text_save_path = ROOT_DIR + '/filter_saves'
 
         self.base_url = kwargs.get('base_url', self.base_url)
         self.fast = kwargs.get('fast', self.fast)
         self.ultra_verbose = kwargs.get('ultra_verbose', self.ultra_verbose)
+        self.save_filtered = kwargs.get('save_filtered', self.save_filtered)
         self.scraper = PageScraper(url=self.base_url, scrape=False)
         self.pw_identifier = PWID(fast=self.fast, ultra_verbose=self.ultra_verbose)
 
@@ -62,9 +86,23 @@ class PastebinScraper(object):
             if possible_passwords:
                 self.password_matches.append((link, score, possible_passwords))
 
+            if score > 0 and self.save_filtered:
+                self._save_text(text[0])
+
             time.sleep(self.crawler_delay)
 
         return self.password_matches
+
+    def _save_text(self, text):
+        file_path = '%s/%s.txt' % (self.text_save_path, uuid.uuid4())
+
+        try:
+            with open(file_path, 'w+') as f:
+                f.write(text)
+        except IOError:
+            log.error('Could not write text to file %s' % file_path)
+
+
 
 
 

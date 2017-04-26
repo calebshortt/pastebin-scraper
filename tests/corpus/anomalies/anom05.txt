@@ -1,31 +1,29 @@
-http://clientportal.link:8080/get.php?username=vi&password=vi&type=m3u
-
-http://151.80.101.14:8000/get.php?username=ibrahem&password=ibrahem&type=m3u
-
-http://grouprevelation.com:8000/get.php?username=DanielTe&password=Teixeira&type=m3u
-
-http://esiptv.dyndns.tv:5252//get.php?username=Usiptv.skype&password=Razmjenaaa&type=m3u
-
-http://mediaiptv.tv/get.php?username=SerVerGlavenIptvPanel&password=yNfrBeLMAC&type=m3u
-
-http://client.momoiptv.com:8088/get.php?username=aminx&password=aminx&type=m3u
-
-http://test.com:5477/get.php?username=nur&password=nur123&type=m3u
-
-http://test:25461/get.php?username=cinemaeskistalker&password=OCZQiWO4fW&type=m3u
-
-http://test:25461/get.php?username=stalkereski&password=lIV1jpuzJr&type=m3u
-
-http://test:25461/get.php?username=muzikeskistalker&password=NBuXxKqyQM&type=m3u
-
-http://test:25461/get.php?username=kurdisheskistalker&password=CoVe5SY9Cq&type=m3u
-
-http://test.pro:12580/get.php?username=ford&password=ford&type=m3u
-
-http://test.nu:8080/get.php?username=internal_stalker&password=internal_use&type=m3u
-
-http://test.tv:8000/get.php?username=ibrahem&password=ibrahem&type=m3u
-
-http://test.com:8000/get.php?username=faicel.07&password=YyPXfqjUw3&type=m3u
-
-http://test.eu:25461/get.php?username=stalker&password=stalker&ty
+[05:07:14 ERROR]: Could not pass event PlayerJoinEvent to GladiatorBrawl v1.0.,0
+org.bukkit.event.EventException
+    at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:306) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:62) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:502) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:487) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.PlayerList.onPlayerJoin(PlayerList.java:327) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.PlayerList.a(PlayerList.java:160) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.LoginListener.b(LoginListener.java:147) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.LoginListener.F_(LoginListener.java:57) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.NetworkManager.a(NetworkManager.java:233) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.ServerConnection.c(ServerConnection.java:140) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.MinecraftServer.D(MinecraftServer.java:842) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.DedicatedServer.D(DedicatedServer.java:399) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.MinecraftServer.C(MinecraftServer.java:678) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at net.minecraft.server.v1_11_R1.MinecraftServer.run(MinecraftServer.java:576) [spigot.jar:git-Spigot-9ba269b-c19c293]
+    at java.lang.Thread.run(Thread.java:745) [?:1.8.0_121]
+Caused by: java.lang.IllegalArgumentException: Name cannot be null
+    at org.apache.commons.lang.Validate.notNull(Validate.java:192) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    at org.bukkit.craftbukkit.v1_11_R1.CraftServer.getWorld(CraftServer.java:1023) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    at org.bukkit.Bukkit.getWorld(Bukkit.java:501) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    at me.xericker.gladiatorbrawl.gb.GladiatorBrawl.getMainLobby(GladiatorBrawl.java:11) ~[?:?]
+    at me.xericker.gladiatorbrawl.gb.Events.onPlayerJoin(Events.java:53) ~[?:?]
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_121]
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_121]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_121]
+    at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_121]
+    at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:302) ~[spigot.jar:git-Spigot-9ba269b-c19c293]
+    ... 14 more

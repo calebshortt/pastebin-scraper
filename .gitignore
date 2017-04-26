@@ -7,3 +7,4 @@ build/
 dist/
 utilities/keys/*
 utilities/ciphertext/*
+filter_saves/*

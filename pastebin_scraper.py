@@ -25,7 +25,7 @@ if __name__ == "__main__":
         cur_start_time = time.time()
         print('Executing Iteration %s of %s...' % (curr_iteration, max_iterations))
 
-        pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True)
+        pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True, save_filtered=True)
         password_matches = pastebin_scraper.analyze()
 
         print('Potential Passwords:')

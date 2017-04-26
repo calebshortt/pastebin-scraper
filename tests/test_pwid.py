@@ -1,8 +1,16 @@
 
 import unittest
+import logging
+import sys
 
 from utils import load_corpus
 from scraper.scraper import PWID
+
+
+logger = logging.getLogger()
+logger.level = logging.DEBUG
+stream_handler = logging.StreamHandler(sys.stdout)
+logger.addHandler(stream_handler)
 
 
 class ScraperTest(unittest.TestCase):
@@ -21,6 +29,10 @@ class ScraperTest(unittest.TestCase):
 
     anomalies = [
         'corpus/anomalies/anom01.txt',
+        'corpus/anomalies/anom02.txt',
+        'corpus/anomalies/anom03.txt',
+        'corpus/anomalies/anom04.txt',
+        'corpus/anomalies/anom05.txt',
     ]
 
     def test_PWID(self):
@@ -30,7 +42,7 @@ class ScraperTest(unittest.TestCase):
         """
 
         text = load_corpus(self.passwords[0])
-        pwid = PWID()
+        pwid = PWID(ultra_verbose=True, fast=False)
 
         matches, score = pwid.identify_passwords(text)
 
@@ -38,11 +50,13 @@ class ScraperTest(unittest.TestCase):
 
     def test_PWID_passwords(self):
 
-        pwid = PWID()
+        pwid = PWID(ultra_verbose=True, fast=False)
 
         for file_path in self.passwords:
-            text = load_corpus(file_path)
 
+            logger.info('Executing on %s' % file_path)
+
+            text = load_corpus(file_path)
             matches, score = pwid.identify_passwords(text)
 
             print score, matches
@@ -50,28 +64,40 @@ class ScraperTest(unittest.TestCase):
 
     def test_PWID_no_passwords(self):
 
-        pwid = PWID()
+        pwid = PWID(ultra_verbose=True, fast=False)
 
         for file_path in self.no_passwords:
-            text = load_corpus(file_path)
 
+            logger.info('Executing on %s' % file_path)
+
+            text = load_corpus(file_path)
             matches, score = pwid.identify_passwords(text)
 
             print score, matches
             assert score <= 0
 
-    # def test_PWID_anomalies(self):
-    #
-    #     pwid = PWID(ultra_verbose=True, fast=False)
-    #
-    #     for file_path in self.anomalies:
-    #         text = load_corpus(file_path)
-    #
-    #         matches, score = pwid.identify_passwords(text)
-    #
-    #         print score, matches
-    #         print pwid.filter.aggregate_score
-    #         # assert score > 0
+    def test_PWID_anomalies(self):
+        """
+        None of the anomalies should register a positive score.
+        Anomalies are more likely than other texts to register a positive score from the filters and produce false
+        positives.
+        :return:
+        """
+
+        pwid = PWID(ultra_verbose=True, fast=False)
+
+        for file_path in self.anomalies:
+
+            logger.info('Executing on %s' % file_path)
+
+            text = load_corpus(file_path)
+            matches, score = pwid.identify_passwords(text)
+
+            print score, matches
+            print pwid.filter.aggregate_score
+
+            assert score <= 0
+
 
 
 
