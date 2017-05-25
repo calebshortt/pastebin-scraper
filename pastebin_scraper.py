@@ -7,6 +7,7 @@
 """
 
 import time
+import sys
 
 from presets.pastebin import PastebinScraper
 
@@ -15,17 +16,24 @@ if __name__ == "__main__":
 
     # print('Executing...')
 
+    reload(sys)
+    sys.setdefaultencoding('utf8')
+
     max_iterations = 100
     curr_iteration = 0
     wait_time_s = 300   # 5 minutes (300s)
     main_start_time = time.time()
+
+    # already_seen = {}
+
+    pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True, save_filtered=True)
 
     while curr_iteration < max_iterations:
 
         cur_start_time = time.time()
         print('Executing Iteration %s of %s...' % (curr_iteration, max_iterations))
 
-        pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True, save_filtered=True)
+        # pastebin_scraper = PastebinScraper(fast=False, ultra_verbose=True, save_filtered=True)
         password_matches = pastebin_scraper.analyze()
 
         print('Potential Passwords:')

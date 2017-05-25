@@ -2,9 +2,12 @@
 import logging
 import time
 import uuid
+import json
+import hashlib
 
 from scraper.scraper import PageScraper, PWID
 from settings import ROOT_DIR
+from categorization.text_parsing import Digestor, CONSTANTS
 
 
 FORMAT = '%(asctime)-15s %(message)s'
@@ -16,6 +19,7 @@ class PastebinScraper(object):
 
     pw_identifier = None
     scraper = None
+    digestor = None
 
     crawler_delay = .5
 
@@ -28,6 +32,9 @@ class PastebinScraper(object):
     save_filtered = False
 
     text_save_path = ""
+    metrics_save_path = ""
+
+    already_hashed = {}
 
     def __init__(self, **kwargs):
         """
@@ -48,6 +55,7 @@ class PastebinScraper(object):
         """
 
         self.text_save_path = ROOT_DIR + '/filter_saves'
+        self.metrics_save_path = ROOT_DIR + '/metric_saves'
 
         self.base_url = kwargs.get('base_url', self.base_url)
         self.fast = kwargs.get('fast', self.fast)
@@ -55,6 +63,7 @@ class PastebinScraper(object):
         self.save_filtered = kwargs.get('save_filtered', self.save_filtered)
         self.scraper = PageScraper(url=self.base_url, scrape=False)
         self.pw_identifier = PWID(fast=self.fast, ultra_verbose=self.ultra_verbose)
+        self.digestor = Digestor()
 
     def analyze(self):
 
@@ -70,6 +79,15 @@ class PastebinScraper(object):
 
         for link in links:
 
+            t_hash = hashlib.sha256()
+            t_hash.update(link)
+            link_digest = t_hash.hexdigest()
+
+            if link_digest in self.already_hashed:
+                continue
+            else:
+                self.already_hashed[link] = True
+
             log.info('Analyzing Link: {}'.format(link))
 
             page_scraper.scrape(link)
@@ -78,19 +96,46 @@ class PastebinScraper(object):
 
             possible_passwords = None
             score = 0
+            digestor_analytics = None
+            formatted_text = ''
             if text:
+                u_text = text[0].encode('utf-8')
+
+                t_hash = hashlib.sha256()
+                t_hash.update(u_text)
+                text_digest = t_hash.hexdigest()
+
+                # if text_digest not in self.already_hashed:
+                if text_digest in self.already_hashed:
+                    continue
+
                 log.debug("Running password identifier...")
-                possible_passwords, score = self.pw_identifier.identify_passwords(text[0])
+                possible_passwords, score = self.pw_identifier.identify_passwords(u_text)
                 log.debug("Done")
 
+                digestor_analytics = self.digestor.digest(u_text)
+
+                self.already_hashed[text_digest] = digestor_analytics
+
+                # --
+
+                heading = '%s\n\n' % json.dumps(digestor_analytics, ensure_ascii=False)
+                heading += '='*40
+                heading += '\n\n'
+
+                unicode(heading, 'utf-8')
+
+                formatted_text = unicode(heading + u_text)
+
             if possible_passwords:
-                self.password_matches.append((link, score, possible_passwords))
+                self.password_matches.append((link, score, possible_passwords, digestor_analytics))
 
             if score > 0 and self.save_filtered:
-                self._save_text(text[0])
+                self._save_text(formatted_text)
 
             time.sleep(self.crawler_delay)
 
+        self._save_metrics(self.password_matches)
         return self.password_matches
 
     def _save_text(self, text):
@@ -101,6 +146,16 @@ class PastebinScraper(object):
                 f.write(text)
         except IOError:
             log.error('Could not write text to file %s' % file_path)
+
+    def _save_metrics(self, metrics_list):
+        file_path = '%s/%s.txt' % (self.metrics_save_path, uuid.uuid4())
+
+        try:
+            with open(file_path, 'w+') as f:
+                for metric in metrics_list:
+                    f.write('%s\n' % json.dumps(metric))
+        except IOError:
+            log.error('Could not write metric to file %s' % file_path)
 
 
 
