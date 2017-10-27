@@ -11,7 +11,7 @@ from categorization.text_parsing import Digestor, CONSTANTS
 
 
 FORMAT = '%(asctime)-15s %(message)s'
-logging.basicConfig(format=FORMAT, level=logging.WARNING)
+logging.basicConfig(format=FORMAT, level=logging.ERROR)
 log = logging.getLogger(__name__)
 
 
@@ -29,12 +29,12 @@ class PastebinScraper(object):
 
     fast = False
     ultra_verbose = True
-    save_filtered = False
+    save_filtered = True
 
     text_save_path = ""
     metrics_save_path = ""
 
-    already_hashed = {}
+    _cached = {}
 
     def __init__(self, **kwargs):
         """
@@ -79,14 +79,10 @@ class PastebinScraper(object):
 
         for link in links:
 
-            t_hash = hashlib.sha256()
-            t_hash.update(link)
-            link_digest = t_hash.hexdigest()
-
-            if link_digest in self.already_hashed:
+            if str(link) in self._cached:
                 continue
             else:
-                self.already_hashed[link] = True
+                self._cached[str(link)] = str(link)
 
             log.info('Analyzing Link: {}'.format(link))
 
@@ -106,7 +102,7 @@ class PastebinScraper(object):
                 text_digest = t_hash.hexdigest()
 
                 # if text_digest not in self.already_hashed:
-                if text_digest in self.already_hashed:
+                if text_digest in self._cached:
                     continue
 
                 log.debug("Running password identifier...")
@@ -115,7 +111,7 @@ class PastebinScraper(object):
 
                 digestor_analytics = self.digestor.digest(u_text)
 
-                self.already_hashed[text_digest] = digestor_analytics
+                # self.already_hashed[text_digest] = digestor_analytics
 
                 # --
 
@@ -156,6 +152,9 @@ class PastebinScraper(object):
                     f.write('%s\n' % json.dumps(metric))
         except IOError:
             log.error('Could not write metric to file %s' % file_path)
+
+    def clear_passwords(self):
+        self.password_matches = []
 
 
 
