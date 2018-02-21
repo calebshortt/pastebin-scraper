@@ -11,7 +11,6 @@ LOCAL_DB_CONFIG = {
         'password': '',
         'host': '127.0.0.1',
         'database': 'pbscraper',
-        # 'raise_on_warnings': True,
     },
     'table': 'scraped_data',
     'table_schema': [
