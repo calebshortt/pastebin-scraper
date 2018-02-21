@@ -14,9 +14,9 @@ setup(
     keywords=[
         'pastebin',
         'scraper'
-        'python',
         'password',
     ],
+    # Rerquires: sudo apt-get install libxml2-dev libxslt-dev python-dev
     install_requires=[
         'lxml==3.4.1',
         'requests==2.5.1',

@@ -23,9 +23,9 @@ if __name__ == "__main__":
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-    max_iterations = 100
+    max_iterations = 1000
     curr_iteration = 0
-    wait_time_s = 300   # 5 minutes (300s)
+    wait_time_s = 200   # seconds
     main_start_time = time.time()
 
     # already_seen = {}

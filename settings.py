@@ -4,7 +4,7 @@ import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-USE_LOCAL_DB = True
+USE_LOCAL_DB = False
 LOCAL_DB_CONFIG = {
     'mysql': {
         'user': 'root',
