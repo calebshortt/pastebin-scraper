@@ -7,8 +7,8 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 USE_LOCAL_DB = False
 LOCAL_DB_CONFIG = {
     'mysql': {
-        'user': 'root',
-        'password': 'mynameis',
+        'user': '',
+        'password': '',
         'host': '127.0.0.1',
         'database': 'pbscraper',
         # 'raise_on_warnings': True,
